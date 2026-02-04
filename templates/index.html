@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Tracker</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar / Navigation -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="logo-icon">A</div>
+                <h1>Tracker</h1>
+            </div>
+            <nav class="nav-menu">
+                <button class="nav-item active" data-view="dashboard">
+                    <span class="icon">📊</span> Dashboard
+                </button>
+                <button class="nav-item" data-view="students">
+                    <span class="icon">👥</span> Students
+                </button>
+                <button class="nav-item" data-view="attendance">
+                    <span class="icon">📅</span> Attendance
+                </button>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="top-bar">
+                <h2 id="page-title">Dashboard</h2>
+                <div class="user-profile">
+                    <span class="date-display" id="current-date">--</span>
+                </div>
+            </header>
+
+            <!-- Views -->
+            <div id="view-container">
+                <!-- Dashboard View -->
+                <section id="view-dashboard" class="view active">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3>Total Students</h3>
+                            <p class="stat-value" id="total-students-count">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Present Today</h3>
+                            <p class="stat-value highlight" id="present-today-count">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Attendance Rate</h3>
+                            <p class="stat-value" id="attendance-rate">0%</p>
+                        </div>
+                    </div>
+
+                    <div class="recent-activity-section">
+                        <h3>Recent Activity</h3>
+                        <div class="empty-state" id="dashboard-empty-state">
+                            No attendance records yet. Start by adding students!
+                        </div>
+                        <!-- Activity list will be injected here -->
+                    </div>
+                </section>
+
+                <!-- Students View -->
+                <section id="view-students" class="view">
+                    <div class="action-bar">
+                        <input type="text" id="search-student" placeholder="Search students...">
+                        <button class="btn btn-primary" id="btn-add-student">+ Add Student</button>
+                    </div>
+                    <div class="card-list" id="students-list">
+                        <!-- Student items will be injected here -->
+                    </div>
+                </section>
+
+                <!-- Attendance View -->
+                <section id="view-attendance" class="view">
+                    <div class="attendance-controls">
+                        <input type="date" id="attendance-date">
+                        <div class="attendance-actions">
+                            <button class="btn btn-secondary" id="btn-mark-all-present">Mark All Present</button>
+                            <button class="btn btn-primary" id="btn-save-attendance">Save Attendance</button>
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table class="attendance-table">
+                            <thead>
+                                <tr>
+                                    <th>Student Name</th>
+                                    <th>Roll No</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="attendance-list">
+                                <!-- Attendance rows injected here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal" id="student-modal">
+            <div class="modal-header">
+                <h3>Add New Student</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <form id="add-student-form">
+                <div class="form-group">
+                    <label for="student-name">Full Name</label>
+                    <input type="text" id="student-name" required placeholder="e.g. John Doe">
+                </div>
+                <div class="form-group">
+                    <label for="student-roll">Roll Number / ID</label>
+                    <input type="text" id="student-roll" required placeholder="e.g. 101">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-text close-modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add Student</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="{{ url_for('static', filename='js/store.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ui.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+
+</html>
